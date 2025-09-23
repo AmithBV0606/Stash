@@ -23,6 +23,7 @@ export default async function Page() {
         <div className="bg-orange-400 p-4 rounded-lg text-black">
           <p className="font-bold">Name: {user?.name}</p>
           <p className="font-bold">Email : {user?.email}</p>
+          <p className="font-bold">Ph No : {user?.number}</p>
         </div>
 
         <Button size="sm">Button</Button>
