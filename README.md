@@ -1,31 +1,32 @@
-# shadcn/ui monorepo template
+# Stash
 
-This template is for creating a monorepo with shadcn/ui.
+Stash is a full-stack digital wallet application built using Next.js, designed to replicate and simplify the seamless experience of popular wallet platforms like `PayTM`. The platform enables users to add fake money to their wallet, send funds to others, and receive payments from other fellow users.
 
-## Usage
+The app focuses on delivering an intuitive user interface, fast transactions, and robust backend support for handling wallet balances and transaction histories. Users can view their wallet balance in real-time, track past transactions, and initiate peer-to-peer transfers with ease.
 
-```bash
-pnpm dlx shadcn@latest init
-```
+##
 
-## Adding components
+### Architecture :
 
-To add components to your app, run the following command at the root of your `web` app:
+<img src="./public/architecture.png" />
 
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
+##
 
-This will place the ui components in the `packages/ui/src/components` directory.
+### Features :
 
-## Tailwind
+1. Auth (In this case, probably email/phone).
+2. Send money to someone.
+3. Support transfers via phone number/name.
+4. Withdraw balance of user back to bank
+5. Webhooks from banks to transfer in money
 
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
+##
 
-## Using components
+### Tech Stack :
 
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
+- Frontend and Backend - Next.js (or Backend)
+- Tailwind (Styling)
+- Express - Auxiliary backends
+- Turbo-repo
+- Postgres Database
+- Prisma ORM
