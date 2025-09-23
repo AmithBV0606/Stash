@@ -3,6 +3,7 @@ export interface GoogleUser {
   name: string;
   email: string;
   image?: string | null;
+  token?: string | null;
 }
 
 export interface CustomUser {
