@@ -14,15 +14,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  number   String @unique
-  password String
-}
-
 enum AuthType {
   Google
-  GitHub
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  number   String   @unique
+  image    String?
+  oauth_id String   @unique
+  provider AuthType @default(Google)
+
+  created_at DateTime @default(now())
 }
