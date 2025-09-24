@@ -1,0 +1,66 @@
+import GoogleProvider from "next-auth/providers/google";
+import { AuthOptions } from "next-auth";
+import { CustomUser } from "@repo/types";
+import axios from "axios";
+
+export const authOptions: AuthOptions = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async signIn({ user, account }) {
+      // console.log("User :", user);
+      // console.log("Account :", account);
+
+      try {
+        const payload = {
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          oauth_id: account?.providerAccountId,
+          provider: "Google",
+        };
+
+        const { data } = await axios.post(
+          `${process.env.NEXTAUTH_URL}/api/sign-user`,
+          payload
+        );
+
+        // Since the user object coming from google doesn't have id, we need to append them to user from the data object :
+        user.id = data?.user?.id.toString();
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = token.user as CustomUser;
+      return session;
+    },
+  },
+};

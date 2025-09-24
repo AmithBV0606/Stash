@@ -11,9 +11,14 @@ import {
 } from "@workspace/ui/components/alert-dialog";
 import { Button } from "@workspace/ui/components/button";
 import { prisma } from "@repo/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/options";
 
 export default async function Page() {
   const user = await prisma.user.findFirst();
+  const session = await getServerSession(authOptions);
+
+  console.log("Session :", session);
 
   return (
     <div className="flex items-center justify-center min-h-svh">
