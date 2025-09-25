@@ -8,7 +8,7 @@ import { useState } from "react";
 import WrapButton from "./wrap-button";
 
 const menuItems = [
-  { name: "Features", href: "#" },
+  { name: "Features", href: "#features" },
   { name: "Solution", href: "#" },
   { name: "Pricing", href: "#" },
   { name: "About", href: "#" },
