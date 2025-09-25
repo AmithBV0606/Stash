@@ -4,7 +4,7 @@ import { Shield, Users } from "lucide-react";
 export default function FeaturesSection() {
   return (
     <section
-      className="bg-gray-50 py-16 md:py-32 dark:bg-transparent"
+      className="bg-gray-50 py-16 md:py-16 dark:bg-transparent"
       id="features"
     >
       <div className="mx-auto max-w-5xl px-6">

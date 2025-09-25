@@ -9,7 +9,7 @@ import WrapButton from "./wrap-button";
 
 const menuItems = [
   { name: "Features", href: "#features" },
-  { name: "Solution", href: "#" },
+  { name: "Insights", href: "#insights" },
   { name: "Pricing", href: "#" },
   { name: "About", href: "#" },
 ];
