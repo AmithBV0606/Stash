@@ -11,14 +11,14 @@ const menuItems = [
   { name: "Features", href: "#features" },
   { name: "Insights", href: "#insights" },
   { name: "Team", href: "#teams" },
-  { name: "About", href: "#" },
+  { name: "Footer", href: "#footer" },
 ];
 
 export default function HeroSection() {
   const [menuState, setMenuState] = useState(false);
   return (
     <>
-      <header>
+      <header id="home">
         <nav
           data-state={menuState && "active"}
           className="fixed z-20 w-full border-b border-dashed bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
