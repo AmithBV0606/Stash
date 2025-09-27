@@ -13,6 +13,7 @@ import { Button } from "@workspace/ui/components/button";
 import { prisma } from "@repo/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
+import ClientLogoutDemo from "@/components/client-logout-demo";
 
 export default async function HomePage() {
   const user = await prisma.user.findFirst();
@@ -31,7 +32,7 @@ export default async function HomePage() {
           <p className="font-bold">Ph No : {user?.number}</p>
         </div>
 
-        <Button size="sm">Button</Button>
+        <ClientLogoutDemo />
 
         <AlertDialog>
           <AlertDialogTrigger asChild>

@@ -14,7 +14,7 @@ import { signIn } from "next-auth/react";
 const handleGoogleAuth = async () => {
   signIn("google", {
     redirect: true,
-    callbackUrl: "/home",
+    callbackUrl: "/dashboard",
   });
 };
 
