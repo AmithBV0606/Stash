@@ -1,5 +1,4 @@
-import { Button } from "@workspace/ui/components/button";
-import Link from "next/link";
+import AuthModal from "./auth/Auth-Modal";
 
 export default function CallToActionSection() {
   return (
@@ -12,11 +11,7 @@ export default function CallToActionSection() {
           <p className="mt-4">Top-up your wallet in seconds.</p>
 
           <div className="mt-12 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="/">
-                <span>Get Started</span>
-              </Link>
-            </Button>
+            <AuthModal AuthType="Sign Up" />
           </div>
         </div>
       </div>

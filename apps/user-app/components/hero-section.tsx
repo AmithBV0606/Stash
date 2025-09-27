@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@workspace/ui/components/button";
 import { ArrowRight, Mail, Menu, SendHorizonal, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import WrapButton from "./wrap-button";
+import AuthModal from "./auth/Auth-Modal";
 
 const menuItems = [
   { name: "Features", href: "#features" },
@@ -61,17 +61,9 @@ export default function HeroSection() {
                 </div>
 
                 <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
-                  <Button asChild variant="outline" size="sm">
-                    <Link href="#">
-                      <span>Login</span>
-                    </Link>
-                  </Button>
+                  <AuthModal AuthType="Login" />
 
-                  <Button asChild size="sm">
-                    <Link href="#">
-                      <span>Sign Up</span>
-                    </Link>
-                  </Button>
+                  <AuthModal AuthType="Sign Up" />
                 </div>
               </div>
             </div>

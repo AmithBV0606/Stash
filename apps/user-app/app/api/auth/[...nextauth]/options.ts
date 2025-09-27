@@ -63,4 +63,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: process.env.NEXTAUTH_URL,
+  },
 };
