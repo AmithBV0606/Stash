@@ -9,6 +9,14 @@ import {
 } from "@workspace/ui/components/dialog";
 import Link from "next/link";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+
+const handleGoogleAuth = async () => {
+  signIn("google", {
+    redirect: true,
+    callbackUrl: "/home",
+  });
+};
 
 export default function AuthModal({ AuthType }: { AuthType: string }) {
   return (
@@ -52,6 +60,7 @@ export default function AuthModal({ AuthType }: { AuthType: string }) {
         <Button
           className="cursor-pointer"
           variant={AuthType === "Sign Up" ? "default" : "outline"}
+          onClick={handleGoogleAuth}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
