@@ -1,7 +1,14 @@
 import GoogleProvider from "next-auth/providers/google";
-import { AuthOptions } from "next-auth";
+import { AuthOptions, DefaultUser } from "next-auth";
 import { CustomUser } from "@repo/types";
 import axios from "axios";
+
+declare module "next-auth" {
+  interface User extends DefaultUser {
+    id: string;
+    number?: string | null;
+  }
+}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -39,8 +46,9 @@ export const authOptions: AuthOptions = {
           payload
         );
 
-        // Since the user object coming from google doesn't have id, we need to append them to user from the data object :
+        // Since the user object coming from google doesn't have id and phone number, we need to append them to user from the data object :
         user.id = data?.user?.id.toString();
+        user.number = data?.user?.number;
 
         return true;
       } catch (error) {
@@ -54,6 +62,7 @@ export const authOptions: AuthOptions = {
           id: user.id,
           name: user.name,
           email: user.email,
+          number: user.number,
         };
       }
       return token;
