@@ -6,3 +6,7 @@ export interface CustomUser {
   oauth_id: string;
   provider: "Google";
 }
+
+export interface CustomSession extends CustomUser {
+  id: string;
+}

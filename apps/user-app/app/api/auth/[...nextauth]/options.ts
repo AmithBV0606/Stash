@@ -1,12 +1,17 @@
 import GoogleProvider from "next-auth/providers/google";
 import { AuthOptions, DefaultUser } from "next-auth";
-import { CustomUser } from "@repo/types";
+import { CustomSession } from "@repo/types";
 import axios from "axios";
+import { prisma } from "@repo/db";
 
 declare module "next-auth" {
   interface User extends DefaultUser {
     id: string;
     number?: string | null;
+  }
+
+  interface Session {
+    user: CustomSession;
   }
 }
 
@@ -68,7 +73,7 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user as CustomUser;
+      session.user = token.user as CustomSession;
       return session;
     },
   },
