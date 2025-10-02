@@ -62,6 +62,7 @@ export const authOptions: AuthOptions = {
       }
     },
     async jwt({ token, user }) {
+      // When logging in for the first time
       if (user) {
         token.user = {
           id: user.id,
@@ -69,7 +70,21 @@ export const authOptions: AuthOptions = {
           email: user.email,
           number: user.number,
         };
+      } else {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: token.email! },
+        });
+
+        if (dbUser) {
+          token.user = {
+            id: dbUser.id.toString(),
+            name: dbUser.name,
+            email: dbUser.email,
+            number: dbUser.number,
+          };
+        }
       }
+
       return token;
     },
     async session({ session, token }) {

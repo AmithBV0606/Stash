@@ -6,25 +6,28 @@ import UpdateNumberModal from "@/components/update-number-modal";
 
 export default async function HomePage() {
   const user = await prisma.user.findFirst();
-  // const session = await getServerSession(authOptions);
-
-  // console.log("Session :", session);
+  const session = await getServerSession(authOptions);
+  // console.log("Session when number is null :", session);
 
   return (
     <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
+      {session?.user?.number === null ? (
+        <>
+          <UpdateNumberModal />
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-4">
+          <h1 className="text-2xl font-bold">Hello World</h1>
 
-        <div className="bg-orange-400 p-4 rounded-lg text-black">
-          <p className="font-bold">Name: {user?.name}</p>
-          <p className="font-bold">Email : {user?.email}</p>
-          <p className="font-bold">Ph No : {user?.number}</p>
+          <div className="bg-orange-400 p-4 rounded-lg text-black">
+            <p className="font-bold">Name: {user?.name}</p>
+            <p className="font-bold">Email : {user?.email}</p>
+            <p className="font-bold">Ph No : {user?.number}</p>
+          </div>
+
+          <ClientLogoutDemo />
         </div>
-
-        <ClientLogoutDemo />
-
-        <UpdateNumberModal />
-      </div>
+      )}
     </div>
   );
 }
