@@ -1,5 +1,6 @@
 import { prisma } from "@repo/db";
 import { getServerSession } from "next-auth";
+import { signOut } from "next-auth/react";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import ClientLogoutDemo from "@/components/client-logout-demo";
 import UpdateNumberModal from "@/components/update-number-modal";
