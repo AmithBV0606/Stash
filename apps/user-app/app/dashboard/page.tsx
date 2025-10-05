@@ -3,10 +3,20 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import ClientLogoutDemo from "@/components/client-logout-demo";
 import UpdateNumberModal from "@/components/update-number-modal";
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@workspace/ui/components/sidebar";
+import { SiteHeader } from "@workspace/ui/components/site-header";
+import { AppSidebar } from "@workspace/ui/components/app-sidebar";
 
-export default async function HomePage() {
-  const user = await prisma.user.findFirst();
+export default async function Page() {
   const session = await getServerSession(authOptions);
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user.email,
+    },
+  });
   // console.log("Session when number is null :", session);
 
   return (
@@ -17,15 +27,31 @@ export default async function HomePage() {
         </div>
       ) : (
         <div className="[--header-height:calc(--spacing(14))]">
-          <div className="flex flex-col items-center justify-center gap-4 mt-20">
-            <div className="bg-orange-400 p-4 rounded-lg text-black">
-              <p className="font-bold">Name: {user?.name}</p>
-              <p className="font-bold">Email : {user?.email}</p>
-              <p className="font-bold">Ph No : {user?.number}</p>
-            </div>
+          <SidebarProvider className="flex flex-col">
+            <SiteHeader />
+            <div className="flex flex-1">
+              <AppSidebar />
+              <SidebarInset>
+                <div className="flex flex-1 flex-col gap-4 p-4">
+                  <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                    <div className="bg-muted/50 aspect-video rounded-xl" />
+                    <div className="bg-muted/50 aspect-video rounded-xl" />
+                    <div className="bg-muted/50 aspect-video rounded-xl" />
+                  </div>
 
-            <ClientLogoutDemo />
-          </div>
+                  <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min">
+                    <p className="font-bold">Name: {user?.name}</p>
+                    <p className="font-bold">Email : {user?.email}</p>
+                    <p className="font-bold">Ph No : {user?.number}</p>
+
+                    <div className="flex flex-col items-center justify-center gap-4 mt-20">
+                      <ClientLogoutDemo />
+                    </div>
+                  </div>
+                </div>
+              </SidebarInset>
+            </div>
+          </SidebarProvider>
         </div>
       )}
     </>
