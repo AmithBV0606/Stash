@@ -14,12 +14,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function UpdateNumberModal() {
   const [open, setOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const { update } = useSession();
+
+  const router = useRouter();
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
@@ -43,6 +46,8 @@ export default function UpdateNumberModal() {
       });
 
       setOpen(false);
+
+      router.refresh();
     } catch (error: any) {
       toast.error(error.message, {
         position: "bottom-right",
