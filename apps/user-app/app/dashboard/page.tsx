@@ -1,15 +1,13 @@
 import { prisma } from "@repo/db";
 import { getServerSession } from "next-auth";
-import { signOut } from "next-auth/react";
 import { authOptions } from "../api/auth/[...nextauth]/options";
-import ClientLogoutDemo from "@/components/client-logout-demo";
 import UpdateNumberModal from "@/components/update-number-modal";
 import {
   SidebarInset,
   SidebarProvider,
 } from "@workspace/ui/components/sidebar";
-import { SiteHeader } from "@workspace/ui/components/site-header";
-import { AppSidebar } from "@workspace/ui/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -44,10 +42,6 @@ export default async function Page() {
                     <p className="font-bold">Name: {user?.name}</p>
                     <p className="font-bold">Email : {user?.email}</p>
                     <p className="font-bold">Ph No : {user?.number}</p>
-
-                    <div className="flex flex-col items-center justify-center gap-4 mt-20">
-                      <ClientLogoutDemo />
-                    </div>
                   </div>
                 </div>
               </SidebarInset>

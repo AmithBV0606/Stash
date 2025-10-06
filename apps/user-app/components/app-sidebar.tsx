@@ -14,10 +14,10 @@ import {
   House,
 } from "lucide-react";
 
-import { NavMain } from "@workspace/ui/components/nav-main";
+import { NavMain } from "@/components/nav-main";
 // import { NavProjects } from "@workspace/ui/components/nav-projects"
 // import { NavSecondary } from "@workspace/ui/components/nav-secondary";
-import { NavUser } from "@workspace/ui/components/nav-user";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
