@@ -2,7 +2,6 @@
 
 import { SidebarIcon } from "lucide-react";
 
-import { SearchForm } from "@/components/search-form";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -36,14 +35,13 @@ export function SiteHeader() {
               <BreadcrumbLink href="#">Stash Dashboard</BreadcrumbLink>
             </BreadcrumbItem>
 
-            {/* <BreadcrumbSeparator /> */}
+            <BreadcrumbSeparator />
 
-            {/* <BreadcrumbItem>
+            <BreadcrumbItem>
               <BreadcrumbPage>Home</BreadcrumbPage>
-            </BreadcrumbItem> */}
+            </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <SearchForm className="w-full sm:ml-auto sm:w-auto" />
       </div>
     </header>
   );
