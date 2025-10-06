@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isAuth = !!token;
-  const isProtectedRoutes = ["/dashboard"].includes(pathname);
+  const isProtectedRoutes = ["/dashboard/home"].includes(pathname);
   const isPublicRoutes = ["/"].includes(pathname);
   // const isApiRoutes = pathname.startsWith("/api");
 
@@ -18,12 +18,12 @@ export async function middleware(req: NextRequest) {
   }
 
   if (isAuth && isPublicRoutes) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/dashboard/home", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/dashboard"],
+  matcher: ["/", "/dashboard/home"],
 };
