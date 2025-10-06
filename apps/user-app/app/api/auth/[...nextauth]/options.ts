@@ -68,6 +68,7 @@ export const authOptions: AuthOptions = {
           id: user.id,
           name: user.name,
           email: user.email,
+          image: user.image,
           number: user.number,
         };
       } else {
@@ -80,6 +81,7 @@ export const authOptions: AuthOptions = {
             id: dbUser.id.toString(),
             name: dbUser.name,
             email: dbUser.email,
+            image: dbUser.image,
             number: dbUser.number,
           };
         }
