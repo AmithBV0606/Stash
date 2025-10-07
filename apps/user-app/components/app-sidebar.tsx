@@ -1,22 +1,9 @@
 "use client";
 
-import React from "react";
-import {
-  ArrowLeftRight,
-  Landmark,
-  WalletMinimal,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  House,
-} from "lucide-react";
+import React, { useState } from "react";
+import { ArrowLeftRight, Landmark, WalletMinimal, House } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
-// import { NavProjects } from "@workspace/ui/components/nav-projects"
-// import { NavSecondary } from "@workspace/ui/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -27,104 +14,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
+import { CustomNavigation } from "@repo/types";
 
-const data = {
-  navMain: [
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [navMain, setNavMain] = useState<CustomNavigation[]>([
     {
       title: "Home",
-      url: "#",
+      url: "/dashboard/home",
       icon: House,
-      isActive: true,
-      // items: [
-      //   {
-      //     title: "History",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Starred",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Settings",
-      //     url: "#",
-      //   },
-      // ],
     },
     {
       title: "Transfer",
-      url: "#",
+      url: "/dashboard/transfer",
       icon: Landmark,
-      // items: [
-      //   {
-      //     title: "Genesis",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Explorer",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Quantum",
-      //     url: "#",
-      //   },
-      // ],
     },
     {
       title: "Transactions",
-      url: "#",
+      url: "/dashboard/transactions",
       icon: ArrowLeftRight,
-      // items: [
-      //   {
-      //     title: "Introduction",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Get Started",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Tutorials",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Changelog",
-      //     url: "#",
-      //   },
-      // ],
     },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  // projects: [
-  //   {
-  //     name: "Design Engineering",
-  //     url: "#",
-  //     icon: Frame,
-  //   },
-  //   {
-  //     name: "Sales & Marketing",
-  //     url: "#",
-  //     icon: PieChart,
-  //   },
-  //   {
-  //     name: "Travel",
-  //     url: "#",
-  //     icon: Map,
-  //   },
-  // ],
-};
+  ]);
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
@@ -149,10 +59,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        {/* <NavProjects projects={data.projects} /> */}
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+        <NavMain items={navMain} />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser />
       </SidebarFooter>
