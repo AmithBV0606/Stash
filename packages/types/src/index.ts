@@ -1,3 +1,5 @@
+import { type LucideIcon } from "lucide-react";
+
 export interface CustomUser {
   name: string;
   email: string;
@@ -9,4 +11,15 @@ export interface CustomUser {
 
 export interface CustomSession extends CustomUser {
   id: string;
+}
+
+export interface CustomNavigation {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  isActive?: boolean;
+  // items?: {
+  //   title: string;
+  //   url: string;
+  // }[];
 }

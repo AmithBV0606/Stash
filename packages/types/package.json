@@ -8,6 +8,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "dependencies": {
+    "lucide-react": "^0.475.0"
+  },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",
     "typescript": "latest"
