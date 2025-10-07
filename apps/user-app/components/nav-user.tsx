@@ -24,6 +24,7 @@ import {
 import { LogoutModal } from "@/components/auth/logout-modal";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export function NavUser() {
   const [logoutOpen, setLogoutOpen] = useState<boolean>(false);
@@ -49,8 +50,8 @@ export function NavUser() {
                     src={session?.user.image!}
                     alt={session?.user.name}
                   />
-                  <AvatarFallback className="rounded-lg">
-                    {session?.user.name.slice(0, 2).toUpperCase()}
+                  <AvatarFallback className="rounded-lg font-bold">
+                    {session?.user.name.slice(0, 1).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
 
@@ -79,8 +80,8 @@ export function NavUser() {
                       src={session?.user.image!}
                       alt={session?.user.name}
                     />
-                    <AvatarFallback className="rounded-lg">
-                      {session?.user.name.slice(0, 2)}
+                    <AvatarFallback className="rounded-lg font-bold">
+                      {session?.user.name.slice(0, 1)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
