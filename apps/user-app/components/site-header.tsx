@@ -13,9 +13,14 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { Separator } from "@workspace/ui/components/separator";
 import { useSidebar } from "@workspace/ui/components/sidebar";
+import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
+
+  const pathname = usePathname();
+  const segment: string[] = pathname.split("/").filter(Boolean);
+  const currUserLocation: string | undefined = segment[segment.length - 1];
 
   return (
     <header className="bg-background sticky top-0 z-50 flex w-full items-center border-b">
@@ -38,7 +43,12 @@ export function SiteHeader() {
             <BreadcrumbSeparator />
 
             <BreadcrumbItem>
-              <BreadcrumbPage>Home</BreadcrumbPage>
+              <BreadcrumbPage>
+                {currUserLocation
+                  ? currUserLocation[0]?.toUpperCase() +
+                    currUserLocation.substring(1)
+                  : "Dashboard"}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
