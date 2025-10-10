@@ -14,6 +14,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Separator } from "@workspace/ui/components/separator";
 import { useSidebar } from "@workspace/ui/components/sidebar";
 import { usePathname } from "next/navigation";
+import { AddMoneyModal } from "./add-money-modal";
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
@@ -33,7 +34,9 @@ export function SiteHeader() {
         >
           <SidebarIcon />
         </Button>
+
         <Separator orientation="vertical" className="mr-2 h-4" />
+
         <Breadcrumb className="hidden sm:block">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -52,6 +55,10 @@ export function SiteHeader() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+      </div>
+
+      <div className="mr-4">
+        <AddMoneyModal />
       </div>
     </header>
   );
