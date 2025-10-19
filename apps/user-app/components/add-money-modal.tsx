@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Modal,
@@ -12,9 +14,37 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { Label } from "@workspace/ui/components/label";
 import { CirclePlus, Wallet } from "lucide-react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export function AddMoneyModal() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [bank, setBank] = React.useState<string>("hdfc");
+
+  const router = useRouter();
+
+  const { data: session } = useSession();
+
+  // console.log("User Id : ", session?.user.id);
+  // console.log("Selected bank is : ", bank);
+
+  const handleAddMoney = async () => {
+    try {
+      const { data } = await axios.post("/api/add-money", {
+        user_id: session?.user.id,
+        bank_name: bank,
+      });
+
+      console.log(data);
+
+      if (data) {
+        router.push(`/bank/${bank}?token=${data.token}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal open={open} onOpenChange={setOpen}>
@@ -42,13 +72,18 @@ export function AddMoneyModal() {
 
         <ModalBody className="space-y-6 -m-4 mt-2">
           <div className="grid gap-2">
-            <Label>Choose Bank</Label>
+            <Label>Please choose a bank</Label>
 
-            <select name="" id="" className="border-2 p-2 rounded-lg">
-              <option value="">Hdfc</option>
-              <option value="">Axis</option>
-              <option value="">Idfc</option>
-              <option value="">SBI</option>
+            <select
+              name="bank"
+              id="bank"
+              className="border-2 p-2 rounded-lg"
+              onChange={(e) => setBank(e.target.value)}
+            >
+              <option value="hdfc">Hdfc</option>
+              <option value="axis">Axis</option>
+              <option value="idfc">Idfc</option>
+              <option value="sbi">SBI</option>
             </select>
           </div>
         </ModalBody>
@@ -58,6 +93,7 @@ export function AddMoneyModal() {
             type="submit"
             className="w-full cursor-pointer"
             variant={"secondary"}
+            onClick={handleAddMoney}
           >
             Proceed To Pay
           </Button>
