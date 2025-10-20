@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
       `http://localhost:3001/bank/${bank_name}`,
       {
         user_id,
-        bank_name,
       }
     );
 
