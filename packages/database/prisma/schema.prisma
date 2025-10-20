@@ -19,13 +19,22 @@ enum AuthType {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  email    String   @unique
-  number   String?   @unique
-  image    String?
-  oauth_id String   @unique
-  provider AuthType @default(Google)
-
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  number     String?  @unique
+  image      String?
+  oauth_id   String   @unique
+  provider   AuthType @default(Google)
   created_at DateTime @default(now())
+
+  Balance Balance[]
+}
+
+model Balance {
+  id     Int @id @default(autoincrement())
+  userId Int @unique
+  amount Int
+
+  user User @relation(fields: [userId], references: [id])
 }
