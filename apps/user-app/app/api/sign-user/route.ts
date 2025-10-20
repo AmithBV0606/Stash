@@ -16,7 +16,14 @@ export async function POST(request: NextRequest) {
     // If not, create a new entry for the user in our Database :
     if (!user) {
       user = await prisma.user.create({
-        data: body,
+        data: {
+          ...body,
+          Balance: {
+            create: {
+              amount: 0,
+            },
+          },
+        },
       });
     }
 
