@@ -6,18 +6,10 @@ import { prisma } from "@repo/db";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const bank_name = body.bank_name ?? body.bank; // accept either key
+    const userId = body.user_id;
+    const email = body.email;
     const amount = Number(body.amount);
-
-    const session = await getServerSession(authOptions);
-    console.log("Session from Deposit : ", session);
-
-    if (!session?.user?.email) {
-      return NextResponse.json(
-        { success: false, message: "Not authenticated" },
-        { status: 401 }
-      );
-    }
+    const bank_name = body.bank_name ?? body.bank;
 
     if (!bank_name || !Number.isFinite(amount) || amount <= 0) {
       return NextResponse.json(
@@ -28,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     const updateBalance = await prisma.balance.update({
       where: {
-        userId: parseInt(session.user.id),
+        userId: parseInt(userId),
       },
       data: {
         amount: { increment: amount },

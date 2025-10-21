@@ -26,17 +26,13 @@ export function AddMoneyModal() {
 
   const { data: session } = useSession();
 
-  // console.log("User Id : ", session?.user.id);
-  // console.log("Selected bank is : ", bank);
-
   const handleAddMoney = async () => {
     try {
       const { data } = await axios.post("/api/add-money", {
         user_id: session?.user.id,
+        email: session?.user.email,
         bank_name: bank,
       });
-
-      console.log(data);
 
       if (data) {
         router.push(`/bank/${bank}?token=${data.token}`);

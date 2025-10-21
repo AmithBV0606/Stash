@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { user_id, bank_name } = await req.json();
+    const { user_id, email, bank_name } = await req.json();
 
-    if (!user_id && !bank_name) {
+    if (!user_id && !email && !bank_name) {
       return NextResponse.json({
         success: false,
         message: "Bank name not selected.",
@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
       `http://localhost:3001/bank/${bank_name}`,
       {
         user_id,
+        email,
       }
     );
 

@@ -2,12 +2,19 @@ import axios from "axios";
 import { Request, Response } from "express";
 
 export async function PaymentController(request: Request, response: Response) {
-  const { amount } = request.body;
+  const { user_id, email, amount } = request.body;
   const { bank_name } = request.params;
 
   console.log("From /payment/:bank_name :", bank_name);
 
-  if (!amount || !bank_name) {
+  if (!user_id && !email && !bank_name) {
+    return response.status(400).json({
+      success: false,
+      message: "Either the userId or the email or the bank name is missing.",
+    });
+  }
+
+  if (!amount) {
     return response.status(400).json({
       success: false,
       message: "Please enter the amount you want to add to your wallet.",
@@ -23,12 +30,14 @@ export async function PaymentController(request: Request, response: Response) {
     const updateStash = await axios.post(
       `http://localhost:3000/api/webhook/deposit`,
       {
-        bank_name: bank_name, // align with webhook
+        user_id: user_id,
+        email: email,
         amount: Number(amount),
+        bank_name: bank_name,
       }
     );
 
-    console.log("Update Stash Webhook", updateStash)
+    console.log("Update Stash Webhook", updateStash);
 
     if (!updateStash?.data?.success) {
       return response.status(502).json({

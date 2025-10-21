@@ -5,6 +5,7 @@ import { Shield, CreditCard, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 export default function page() {
   const [amount, setAmount] = useState("");
@@ -13,6 +14,8 @@ export default function page() {
 
   const params = useParams<{ bankName: string }>();
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   const quickAmounts = [500, 1000, 2000, 5000, 10000];
 
@@ -36,7 +39,11 @@ export default function page() {
     // await new Promise((resolve) => setTimeout(resolve, 1500));
     const { data } = await axios.post(
       `http://localhost:3001/bank/payment/${params.bankName}`,
-      { amount: amount }
+      {
+        user_id: session?.user.id,
+        email: session?.user.email,
+        amount: amount,
+      }
     );
 
     if (!data) {
