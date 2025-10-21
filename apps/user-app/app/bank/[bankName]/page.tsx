@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Shield, CreditCard, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function page() {
   const [amount, setAmount] = useState("");
@@ -31,7 +33,18 @@ export default function page() {
     if (!amount || parseInt(amount) > 10000) return;
 
     setIsProcessing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
+    const { data } = await axios.post(
+      `http://localhost:3001/bank/payment/${params.bankName}`,
+      { amount: amount }
+    );
+
+    if (!data) {
+      toast.error(
+        "Wasn't able to complete the transaction due to some error, please try again later."
+      );
+    }
+
     setIsProcessing(false);
     setShowSuccess(true);
 
